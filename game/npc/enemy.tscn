@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=1]
+
+[sub_resource type="ImageTexture" id=1]
+
+flags = 7
+image = Image()
+size = Vector2( 50, 50 )
+storage = 0
+lossy_quality = 0.7
+
+[node name="Enemy" type="Sprite"]
+
+texture = SubResource( 1 )
+
+
