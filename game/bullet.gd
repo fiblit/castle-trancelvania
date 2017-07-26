@@ -1,14 +1,14 @@
-extends Sprite
+extends RigidBody2D
 
-var bounds = null
+var velocity
 
 func _ready():
-	bounds = get_node("Rigid")
-	bounds.connect("body_enter", self, "_on_collision")
-	bounds.connect("area_enter", self, "_on_collision")
+	self.connect("body_enter", self, "_on_collision")
+	self.connect("area_enter", self, "_on_collision")
+	set_linear_velocity(velocity)
 
-func _init(vel):
-	pass
+func init(vel):
+	velocity = vel
 
 func _on_collision(collider):
 	# Destroy self, no effect

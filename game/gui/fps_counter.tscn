@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://game/gui/Artifika/Artifika40.tres" type="DynamicFont" id=1]
+[ext_resource path="res://game/gui/fps_counter.gd" type="Script" id=2]
+
+[node name="fps_counter" type="Label"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 1310.0
+margin/top = 41.0
+margin/right = 1546.0
+margin/bottom = 90.0
+custom_fonts/font = ExtResource( 1 )
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script/script = ExtResource( 2 )
+
+
