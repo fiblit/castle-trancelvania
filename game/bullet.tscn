@@ -34,6 +34,7 @@ velocity/angular = 0.0
 damp_override/linear = 0.0
 damp_override/angular = 0.0
 script/script = ExtResource( 1 )
+base_speed = 800
 
 [node name="Rigid" type="Sprite" parent="."]
 

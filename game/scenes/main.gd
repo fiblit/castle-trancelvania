@@ -1,22 +1,28 @@
 extends Node2D
 
 var bullet_scene = preload("res://game/bullet.tscn")
-export var base_speed = 800
+var player = null
 
 func _input(event):
-	var is_press = event.is_pressed()
-	var is_echo = event.is_echo()
-	var is_valid = is_press and not is_echo
-	var is_attack = event.is_action("char_attack")
-	if is_valid and is_attack:
+	if event.is_action_pressed("char_attack"):
 		var dir = get_viewport().get_mouse_pos()
-		spawn_bullet(dir)
+		var pos = player.get_pos()
+		dir = dir - pos
+		spawn_bullet(dir, pos)
+	elif event.is_action_pressed("char_move_up"):
+		player.move(Vector2(0, -10))
+	elif event.is_action_pressed("char_move_down"):
+		player.move(Vector2(0, 10))
+	elif event.is_action_pressed("char_move_left"):
+		player.move(Vector2(-10, 0))
+	elif event.is_action_pressed("char_move_right"):
+		player.move(Vector2(10, 0))
 
-func spawn_bullet(dir):
-	dir = dir.normalized() * base_speed
+func spawn_bullet(dir, pos):
 	var node = bullet_scene.instance()
-	node.init(dir)
+	node.init(dir, pos)
 	add_child(node)
 
 func _ready():
+	player = get_node("Player")
 	set_process_input(true)
