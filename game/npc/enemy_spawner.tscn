@@ -7,5 +7,6 @@
 script/script = ExtResource( 1 )
 time_to_spawn = 0.3
 size = Vector2( 0, 0 )
+capacity = 20
 
 

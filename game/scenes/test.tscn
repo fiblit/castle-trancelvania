@@ -11,19 +11,23 @@ transform/rot = 0.704032
 [node name="enemy" parent="." instance=ExtResource( 1 )]
 
 transform/pos = Vector2( -119.51, 26.1217 )
+max_speed = 200
 
 [node name="enemy1" parent="." instance=ExtResource( 1 )]
 
 transform/pos = Vector2( -124.638, -8.21057 )
+max_speed = 200
 
 [node name="enemy2" parent="." instance=ExtResource( 1 )]
 
 transform/pos = Vector2( -113.995, -22.7617 )
+max_speed = 200
 
 [node name="enemy3" parent="." instance=ExtResource( 1 )]
 
 transform/pos = Vector2( -101.951, 10.1007 )
 transform/rot = -68.9543
+max_speed = 200
 
 [node name="bullet" parent="." instance=ExtResource( 2 )]
 

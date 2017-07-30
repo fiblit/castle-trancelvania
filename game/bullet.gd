@@ -21,5 +21,7 @@ func init(vel, pos):
 	set_pos(position)
 
 func on_collision(collider):
+	if collider.has_method("bullet_hit"):
+		collider.bullet_hit()
 	# Destroy self, no effect
 	queue_free()
