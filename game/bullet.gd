@@ -1,19 +1,22 @@
 extends RigidBody2D
 
-var velocity
-var position
-export var base_speed = 1600
+var velocity = Vector2(0, 0)
+var position = Vector2(0, 0)
+export var base_speed = 600
 
 func _ready():
-	self.connect("body_enter", self, "_on_collision")
-	set_linear_velocity(velocity)
-	set_pos(position)
+	connect("body_enter", self, "on_collision")
+	if velocity.length_squared() > 0:
+		look_at(-velocity + position)
 
 func init(vel, pos):
+	var nvel = vel.normalized()
 	vel = vel.normalized() * base_speed
 	velocity = vel
 	position = pos
+	set_linear_velocity(velocity)
+	set_pos(position)
 
-func _on_collision(collider):
+func on_collision(collider):
 	# Destroy self, no effect
-	self.queue_free()
+	queue_free()

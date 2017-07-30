@@ -17,6 +17,8 @@ func accel(vec):
 	accel = vec.normalized() * max_speed / time_to_accel
 
 func _fixed_process(delta):
+	pos = get_pos()#account for collisions/teleports
+	
 	#This is poor integration, however it doesn't need to be good. The character
 	#already has unrealistic physics. If it drifts from reality over time, that
 	#is fine. Acceleration is instantaneous, but decceleration is not.
@@ -39,6 +41,9 @@ func _fixed_process(delta):
 	
 	pos += velocity * delta
 	set_pos(pos)
+
+func get_size():
+	return self.get_node("sprite").get_texture().get_size()
 
 func _ready():
 	pos = get_pos()

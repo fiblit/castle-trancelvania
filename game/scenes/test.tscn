@@ -1,5 +1,49 @@
-[gd_scene format=1]
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://game/npc/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/bullet.tscn" type="PackedScene" id=2]
 
 [node name="Node2D" type="Node2D"]
 
+transform/pos = Vector2( 388.44, 325 )
+transform/rot = 0.704032
 
+[node name="enemy" parent="." instance=ExtResource( 1 )]
+
+transform/pos = Vector2( -119.51, 26.1217 )
+
+[node name="enemy1" parent="." instance=ExtResource( 1 )]
+
+transform/pos = Vector2( -124.638, -8.21057 )
+
+[node name="enemy2" parent="." instance=ExtResource( 1 )]
+
+transform/pos = Vector2( -113.995, -22.7617 )
+
+[node name="enemy3" parent="." instance=ExtResource( 1 )]
+
+transform/pos = Vector2( -101.951, 10.1007 )
+transform/rot = -68.9543
+
+[node name="bullet" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( -109.468, -63.8902 )
+transform/rot = -69.4328
+
+[node name="bullet1" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( -53.2148, -20.9436 )
+transform/rot = -174.864
+
+[node name="bullet2" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( -80.5236, 52.2276 )
+transform/rot = -72.7905
+
+[node name="bullet3" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( -58.404, -28.4901 )
+transform/rot = -72.7905
+
+
+[editable path="enemy"]

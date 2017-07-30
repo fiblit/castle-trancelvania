@@ -2,14 +2,17 @@
 
 [ext_resource path="res://game/scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://game/gui/fps_counter.tscn" type="PackedScene" id=2]
-[ext_resource path="res://game/player/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game/npc/enemy_spawner.tscn" type="PackedScene" id=3]
 
-[node name="Node2D" type="Node2D"]
+[node name="level" type="Node2D"]
 
 script/script = ExtResource( 1 )
 
 [node name="fps_counter" parent="." instance=ExtResource( 2 )]
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
+[node name="spawner" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 642.127, 321.064 )
+size = Vector2( 300, 300 )
 
 

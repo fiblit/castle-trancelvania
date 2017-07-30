@@ -1,11 +1,19 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://game/player/player.gd" type="Script" id=1]
 [ext_resource path="res://art/dummy/happy.png" type="Texture" id=2]
 
-[node name="Player" type="KinematicBody2D"]
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 49.9223, -40.2739, 49.9621, -1.44695, -23.7941, -1.44118, -23.8031, -40.2803 )
+
+[node name="player" type="KinematicBody2D"]
 
 input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 0.678854, 0, 0, 1.28899, -8.87564, 26.8911 )
+shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
@@ -14,8 +22,17 @@ max_speed = 200
 time_to_deccel = 0.6
 time_to_accel = 0.15
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="sprite" type="Sprite" parent="."]
 
 texture = ExtResource( 2 )
+
+[node name="polygon" type="CollisionPolygon2D" parent="."]
+
+transform/pos = Vector2( -8.87564, 26.8911 )
+transform/scale = Vector2( 0.678854, 1.28899 )
+build_mode = 0
+polygon = Vector2Array( 49.9223, -40.2739, 49.9621, -1.44695, -23.7941, -1.44118, -23.8031, -40.2803 )
+shape_range = Vector2( 0, 0 )
+trigger = false
 
 

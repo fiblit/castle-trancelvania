@@ -6,16 +6,16 @@
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
-points = Vector2Array( -1.24394, -0.423045, -0.416461, -1.23718, 0.407682, -1.24719, 1.26185, -0.406362, 1.25018, 0.406603, 0.41269, 1.24409, -0.399778, 1.24192, -1.23727, 0.404435 )
+points = Vector2Array( -1.23631, -0.369059, -0.458874, -1.20258, 0.353993, -1.23088, 1.22167, -0.428738, 1.24075, 0.382557, 0.434657, 1.2468, -0.350776, 1.24881, -1.18883, 0.467143 )
 
-[node name="Bullet" type="RigidBody2D" groups=[
+[node name="bullet" type="RigidBody2D" groups=[
 "projectiles",
 ]]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 2.47487, -2.47487, 2.47487, 2.47487, -0.0275841, 0 )
-shapes/0/trigger = true
+shapes/0/transform = Matrix32( 2.55949, -2.38726, 2.38726, 2.55949, -0.0275841, 0 )
+shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
 mode = 0
@@ -31,23 +31,47 @@ sleeping = false
 can_sleep = true
 velocity/linear = Vector2( 0, 0 )
 velocity/angular = 0.0
-damp_override/linear = 0.0
-damp_override/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
 script/script = ExtResource( 1 )
-base_speed = 800
+base_speed = 600
 
-[node name="Rigid" type="Sprite" parent="."]
+[node name="rigid" type="Sprite" parent="."]
 
 texture = ExtResource( 2 )
 
-[node name="Polygon" type="CollisionPolygon2D" parent="."]
+[node name="polygon" type="CollisionPolygon2D" parent="."]
 
 transform/pos = Vector2( -0.0275841, 0 )
-transform/rot = 45.0
+transform/rot = 43.006
 transform/scale = Vector2( 3.5, 3.5 )
 build_mode = 0
-polygon = Vector2Array( -1.24394, -0.423045, -0.416461, -1.23718, 0.407682, -1.24719, 1.26185, -0.406362, 1.25018, 0.406603, 0.41269, 1.24409, -0.399778, 1.24192, -1.23727, 0.404435 )
+polygon = Vector2Array( -1.23631, -0.369059, -0.458874, -1.20258, 0.353993, -1.23088, 1.22167, -0.428738, 1.24075, 0.382557, 0.434657, 1.2468, -0.350776, 1.24881, -1.18883, 0.467143 )
 shape_range = Vector2( 0, 0 )
-trigger = true
+trigger = false
+
+[node name="particles" type="Particles2D" parent="."]
+
+transform/pos = Vector2( -0.188015, 7.58334 )
+config/amount = 32
+config/lifetime = 1.5
+config/time_scale = 3.0
+config/process_mode = 1
+params/direction = 0.0
+params/spread = 7.0
+params/linear_velocity = 60.0
+params/spin_velocity = 60.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 9.8
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 2.0
+params/final_size = 0.5
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
 
 
