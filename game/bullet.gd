@@ -5,15 +5,18 @@ var position = Vector2(0, 0)
 export var base_speed = 600
 
 func _ready():
-	connect("body_enter", self, "on_collision")
+	self.connect("body_enter", self, "on_collision")
 	if velocity.length_squared() > 0:
 		look_at(-velocity + position)
+
+func get_size():
+	return get_node("rigid").get_texture().get_size()
 
 func init(vel, pos):
 	var nvel = vel.normalized()
 	vel = vel.normalized() * base_speed
 	velocity = vel
-	position = pos
+	position = pos + nvel * get_size().x
 	set_linear_velocity(velocity)
 	set_pos(position)
 
