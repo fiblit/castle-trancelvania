@@ -11,10 +11,13 @@ func _process(delta):
 	var is_time = since_last_spawn >= time_to_spawn
 	var is_full = get_child_count() >= capacity
 	while is_time and not is_full:
-		since_last_spawn -= time_to_spawn
 		spawn_enemy()
+		since_last_spawn -= time_to_spawn
 		is_time = since_last_spawn >= time_to_spawn
 		is_full = get_child_count() >= capacity 
+	
+	if is_time:
+		since_last_spawn -= time_to_spawn
 
 func spawn_enemy():
 	var x = (randf() + 0.5) * size.width

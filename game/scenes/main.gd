@@ -22,16 +22,16 @@ func try_hold_actions(event):
 		elif event.is_action_released(a):
 			is_action_held[a] = false
 
-func _input(event):
-	try_hold_actions(event)
-	
-	if event.is_action_pressed("char_attack"):
+func player_controls(delta):
+	if is_action_held["char_attack"]:
 		var dir = get_viewport().get_mouse_pos()
 		var pos = player.get_pos()
-		var radius = (player.get_size().x) * sqrt(2) / 2
+		var radius = player.get_size().x * sqrt(2) / 2
 		dir = dir - pos
-		spawn_bullet(dir, pos + dir.normalized() * radius)
-
+		var dist = 600
+		var speed = 600
+		spawn_bullet(dir, pos + dir.normalized() * radius, dist, speed)
+	
 	var motion = Vector2(0, 0)
 	if is_action_held["char_move_up"]:
 		motion += Vector2(0, -1)
@@ -46,9 +46,15 @@ func _input(event):
 	else:
 		player.deccel()
 
-func spawn_bullet(dir, pos):
+func _process(delta):
+	player_controls(delta)
+
+func _input(event):
+	try_hold_actions(event)
+
+func spawn_bullet(dir, pos, dist, speed):
 	var bullet = bullet_scene.instance()
-	bullet.init(dir, pos)
+	bullet.init(dir, pos, dist, speed)
 	add_child(bullet)
 
 func spawn_player():
@@ -63,9 +69,14 @@ func spawn_enemy_area():
 
 func _ready():
 	set_process_input(true)
+	set_process(true)
 	screen_width = get_viewport_rect().size.width
 	screen_height = get_viewport_rect().size.height
 	screen_center = Vector2(screen_width / 2, screen_height / 2)
 	
 	spawn_player()
+	player.connect("player_death", self, "on_player_death")
 	spawn_enemy_area()
+
+func on_player_death():
+	get_node("/root/scene_changer").goto_scene("res://game/gui/menu/menu.tscn")

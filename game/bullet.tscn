@@ -15,7 +15,7 @@ points = Vector2Array( -1.23631, -0.369059, -0.458874, -1.20258, 0.353993, -1.23
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 2.55949, -2.38726, 2.38726, 2.55949, -0.0275841, 0 )
-shapes/0/trigger = false
+shapes/0/trigger = true
 collision/layers = 1
 collision/mask = 1
 mode = 0
@@ -35,6 +35,7 @@ damp_override/linear = -1.0
 damp_override/angular = -1.0
 script/script = ExtResource( 1 )
 base_speed = 600
+base_range = 600
 
 [node name="rigid" type="Sprite" parent="."]
 
@@ -48,7 +49,7 @@ transform/scale = Vector2( 3.5, 3.5 )
 build_mode = 0
 polygon = Vector2Array( -1.23631, -0.369059, -0.458874, -1.20258, 0.353993, -1.23088, 1.22167, -0.428738, 1.24075, 0.382557, 0.434657, 1.2468, -0.350776, 1.24881, -1.18883, 0.467143 )
 shape_range = Vector2( 0, 0 )
-trigger = false
+trigger = true
 
 [node name="particles" type="Particles2D" parent="."]
 

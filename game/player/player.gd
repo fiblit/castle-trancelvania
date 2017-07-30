@@ -3,10 +3,13 @@ extends KinematicBody2D
 export var max_speed = 200
 export var time_to_deccel = 0.6
 export var time_to_accel = 0.15
+export var health = 20
 var deccel = Vector2(0, 0)
 var accel = Vector2(0, 0)
 var velocity = Vector2(0, 0)
 var pos = Vector2(0, 0)
+
+signal player_death
 
 func deccel():
 	deccel = (1 / time_to_deccel) * velocity
@@ -53,3 +56,8 @@ func _ready():
 func _process(delta):
 	if is_colliding():
 		print(get_collider(), get_collision_pos())
+
+func bullet_hit(bullet):
+	health -= 1
+	if health <= 0:
+		emit_signal("player_death")
