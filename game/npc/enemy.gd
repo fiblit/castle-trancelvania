@@ -5,12 +5,13 @@ var player = null
 export var health = 2
 export var max_speed = 100
 export var fire_rate = 1
+export var bullet_range = 600
+export var bullet_speed = 300
 
 func find_player():
 	if player == null:
 		player = get_tree().get_root().get_node("level/player")
 	return player != null
-
 
 var time_to_shoot = 0
 func hunt(delta):
@@ -21,7 +22,8 @@ func hunt(delta):
 	time_to_shoot -= delta
 	if time_to_shoot <= 0:
 		var radius = get_size().x * sqrt(2)/2
-		spawn_bullet(dir, get_pos() + ndir * radius, 600, 300)
+		var offset_pos = get_pos() + ndir * radius
+		spawn_bullet(dir, offset_pos, bullet_range, bullet_speed)
 		time_to_shoot = fire_rate
 
 func _process(delta):

@@ -24,13 +24,16 @@ func try_hold_actions(event):
 
 func player_controls(delta):
 	if is_action_held["char_attack"]:
-		var dir = get_viewport().get_mouse_pos()
-		var pos = player.get_pos()
-		var radius = player.get_size().x * sqrt(2) / 2
-		dir = dir - pos
-		var dist = 600
-		var speed = 600
-		spawn_bullet(dir, pos + dir.normalized() * radius, dist, speed)
+		player.time_to_shoot -= delta
+		if player.time_to_shoot <= 0:
+			player.time_to_shoot = player.fire_rate
+			var dir = get_viewport().get_mouse_pos()
+			var pos = player.get_pos()
+			var radius = player.get_size().x * sqrt(2) / 2
+			dir = dir - pos
+			var dist = 600
+			var speed = 600
+			spawn_bullet(dir, pos + dir.normalized() * radius, dist, speed)
 	
 	var motion = Vector2(0, 0)
 	if is_action_held["char_move_up"]:

@@ -4,6 +4,9 @@ export var max_speed = 200
 export var time_to_deccel = 0.6
 export var time_to_accel = 0.15
 export var health = 20
+export var fire_rate = 0.1
+var time_to_shoot = 0
+
 var deccel = Vector2(0, 0)
 var accel = Vector2(0, 0)
 var velocity = Vector2(0, 0)
@@ -49,13 +52,10 @@ func get_size():
 	return self.get_node("sprite").get_texture().get_size()
 
 func _ready():
-	pos = get_pos()
-	set_process(true)
-	set_fixed_process(true)
+	time_to_shoot = fire_rate
 	
-func _process(delta):
-	if is_colliding():
-		print(get_collider(), get_collision_pos())
+	pos = get_pos()
+	set_fixed_process(true)
 
 func bullet_hit(bullet):
 	health -= 1
