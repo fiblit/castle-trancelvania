@@ -39,7 +39,7 @@ func player_controls(delta):
 			var offset_pos = pos + ndir_to_mouse * radius
 			spawn_bullet(ndir_to_mouse, offset_pos, dist, speed)
 	
-	if is_action_held["char_special"]:
+	if is_action_held["char_aim"]:
 		player.aim(dir_to_mouse)
 	else:
 		player.aim(Vector2(0, 0))
