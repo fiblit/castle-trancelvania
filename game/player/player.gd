@@ -48,6 +48,10 @@ func _fixed_process(delta):
 	pos += velocity * delta
 	set_pos(pos)
 
+func set_pos(pos):
+	.set_pos(pos)
+	move(Vector2(0, 0))
+
 func get_size():
 	return self.get_node("sprite").get_texture().get_size()
 

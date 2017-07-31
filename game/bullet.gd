@@ -4,6 +4,7 @@ var velocity = Vector2(0, 0)
 var position = Vector2(0, 0)
 export var base_speed = 600
 export var base_range = 600
+export var die_on_hit = true
 
 var time_to_live = 0
 
@@ -34,7 +35,13 @@ func init(vel, pos, dist, speed):
 	set_linear_velocity(velocity)
 	set_pos(position)
 
+func bullet_hit(bullet):
+	bullet.die_on_hit = false
+
 func on_collision(collider):
 	if collider.has_method("bullet_hit"):
 		collider.bullet_hit(self)
+	if die_on_hit:
 		queue_free()
+	else:
+		die_on_hit = true
