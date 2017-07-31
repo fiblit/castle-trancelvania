@@ -11,6 +11,7 @@ var screen_center = Vector2(0, 0)
 var is_action_held = {
 	"char_attack" : false,
 	"char_special" : false,
+	"char_aim": false,
 	"char_move_up" : false,
 	"char_move_down" : false,
 	"char_move_left" : false,
