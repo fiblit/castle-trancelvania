@@ -5,6 +5,7 @@ export var time_to_deccel = 0.6
 export var time_to_accel = 0.15
 export var health = 20
 export var fire_rate = 0.1
+export var base_aim_sight = 300
 var time_to_shoot = 0
 
 var deccel = Vector2(0, 0)
@@ -50,10 +51,19 @@ func _fixed_process(delta):
 
 func set_pos(pos):
 	.set_pos(pos)
+	#Help detect collisions smoothly (this probably isn't performant though)
 	move(Vector2(0, 0))
 
 func get_size():
 	return self.get_node("sprite").get_texture().get_size()
+
+func aim(dir):
+	var len = dir.length_squared()
+	var cam = get_node("tripod")
+	if len < base_aim_sight * base_aim_sight:
+		cam.set_pos(dir)
+	else:
+		cam.set_pos(dir.normalized() * base_aim_sight)
 
 func _ready():
 	time_to_shoot = fire_rate

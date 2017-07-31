@@ -3,7 +3,7 @@
 [ext_resource path="res://game/scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://game/gui/fps_counter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game/npc/enemy_spawner.tscn" type="PackedScene" id=3]
-[ext_resource path="res://game/scenes/map/terrain.tscn" type="PackedScene" id=4]
+[ext_resource path="res://game/scenes/map/map.tscn" type="PackedScene" id=4]
 
 [node name="level" type="YSort"]
 
@@ -24,6 +24,6 @@ scale = Vector2( 1, 1 )
 transform/pos = Vector2( 642.127, 321.064 )
 size = Vector2( 300, 300 )
 
-[node name="terrain" parent="." instance=ExtResource( 4 )]
+[node name="map" parent="." instance=ExtResource( 4 )]
 
 

@@ -21,6 +21,9 @@ script/script = ExtResource( 1 )
 max_speed = 200
 time_to_deccel = 0.6
 time_to_accel = 0.15
+health = 20
+fire_rate = 0.1
+base_aim_sight = 300
 
 [node name="sprite" type="Sprite" parent="."]
 
@@ -34,5 +37,26 @@ build_mode = 0
 polygon = Vector2Array( 49.9223, -40.2739, 49.9621, -1.44695, -23.7941, -1.44118, -23.8031, -40.2803 )
 shape_range = Vector2( 0, 0 )
 trigger = false
+
+[node name="tripod" type="Node2D" parent="."]
+
+[node name="camera" type="Camera2D" parent="tripod"]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -320
+limit/right = 10000000
+limit/bottom = 932
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = true
+smoothing/speed = 5.0
+drag_margin/left = 0.1
+drag_margin/top = 0.1
+drag_margin/right = 0.1
+drag_margin/bottom = 0.1
 
 

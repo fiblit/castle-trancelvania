@@ -10,6 +10,7 @@ var screen_center = Vector2(0, 0)
 
 var is_action_held = {
 	"char_attack" : false,
+	"char_special" : false,
 	"char_move_up" : false,
 	"char_move_down" : false,
 	"char_move_left" : false,
@@ -23,17 +24,25 @@ func try_hold_actions(event):
 			is_action_held[a] = false
 
 func player_controls(delta):
+	var pos = player.get_pos()
+	var mouse_pos = get_viewport().get_mouse_pos()
+	var view_pos = get_viewport_transform().get_origin()
+	var dir_to_mouse = mouse_pos - view_pos - pos
+	var ndir_to_mouse = dir_to_mouse.normalized()
 	if is_action_held["char_attack"]:
 		player.time_to_shoot -= delta
 		if player.time_to_shoot <= 0:
 			player.time_to_shoot = player.fire_rate
-			var dir = get_viewport().get_mouse_pos()
-			var pos = player.get_pos()
 			var radius = player.get_size().x * sqrt(2) / 2
-			dir = dir - pos
 			var dist = 600
 			var speed = 600
-			spawn_bullet(dir, pos + dir.normalized() * radius, dist, speed)
+			var offset_pos = pos + ndir_to_mouse * radius
+			spawn_bullet(ndir_to_mouse, offset_pos, dist, speed)
+	
+	if is_action_held["char_special"]:
+		player.aim(dir_to_mouse)
+	else:
+		player.aim(Vector2(0, 0))
 	
 	var motion = Vector2(0, 0)
 	if is_action_held["char_move_up"]:
