@@ -21,9 +21,17 @@ script/script = ExtResource( 1 )
 max_speed = 200
 time_to_deccel = 0.6
 time_to_accel = 0.15
-health = 20
+max_health = 5
+health = 5
+regen = 5
+damage_delay = 0.5
 fire_rate = 0.1
 base_aim_sight = 300
+bullet_speed = 600
+bullet_range = 600
+blink_max = 0.95
+blink_count = 2
+blink_min = 0.5
 
 [node name="sprite" type="Sprite" parent="."]
 

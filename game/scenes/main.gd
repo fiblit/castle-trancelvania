@@ -1,4 +1,4 @@
-extends Node2D
+extends YSort
 
 const bullet_scene = preload("res://game/bullet.tscn")
 const enemy_scene = preload("res://game/npc/enemy.tscn")
@@ -31,14 +31,7 @@ func player_controls(delta):
 	var dir_to_mouse = mouse_pos - view_pos - pos
 	var ndir_to_mouse = dir_to_mouse.normalized()
 	if is_action_held["char_attack"]:
-		player.time_to_shoot -= delta
-		if player.time_to_shoot <= 0:
-			player.time_to_shoot = player.fire_rate
-			var radius = player.get_size().x * sqrt(2) / 2
-			var dist = 600
-			var speed = 600
-			var offset_pos = pos + ndir_to_mouse * radius
-			spawn_bullet(ndir_to_mouse, offset_pos, dist, speed)
+		player.try_fire(ndir_to_mouse, delta)
 	
 	if is_action_held["char_aim"]:
 		player.aim(dir_to_mouse)
@@ -65,11 +58,6 @@ func _process(delta):
 func _input(event):
 	try_hold_actions(event)
 
-func spawn_bullet(dir, pos, dist, speed):
-	var bullet = bullet_scene.instance()
-	bullet.init(dir, pos, dist, speed)
-	add_child(bullet)
-
 func spawn_player():
 	player = player_scene.instance()
 	var center_x = screen_center.x - player.get_size().width / 2
@@ -90,6 +78,11 @@ func _ready():
 	spawn_player()
 	player.connect("player_death", self, "on_player_death")
 	spawn_enemy_area()
+
+func spawn_bullet(dir, pos, dist, speed):
+	var bullet = bullet_scene.instance()
+	bullet.init(dir, pos, dist, speed)
+	add_child(bullet)
 
 func on_player_death():
 	get_node("/root/scene_changer").goto_scene("res://game/gui/menu/menu.tscn")
