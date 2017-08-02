@@ -21,6 +21,7 @@ script/script = ExtResource( 1 )
 max_speed = 200
 time_to_deccel = 0.6
 time_to_accel = 0.15
+ability = 0
 max_health = 5
 health = 5
 regen = 5

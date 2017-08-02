@@ -65,9 +65,6 @@ func spawn_player():
 	player.set_pos(Vector2(center_x, center_y))
 	add_child(player)
 
-func spawn_enemy_area():
-	pass
-
 func _ready():
 	set_process_input(true)
 	set_process(true)
@@ -77,7 +74,6 @@ func _ready():
 	
 	spawn_player()
 	player.connect("player_death", self, "on_player_death")
-	spawn_enemy_area()
 
 func spawn_bullet(dir, pos, dist, speed):
 	var bullet = bullet_scene.instance()

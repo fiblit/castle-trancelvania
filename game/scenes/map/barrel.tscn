@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://game/scenes/map/barrel.tex" type="Texture" id=1]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -5, 11, 10, 11, 10, 16, -5, 16 )
+
+[node name="barrel" type="Sprite"]
+
+transform/pos = Vector2( 10, 16 )
+texture = ExtResource( 1 )
+offset = Vector2( 0.5, 0 )
+
+[node name="body" type="StaticBody2D" parent="."]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -2, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="polygon" type="CollisionPolygon2D" parent="body"]
+
+transform/pos = Vector2( -2, 0 )
+build_mode = 0
+polygon = Vector2Array( -5, 16, 10, 16, 10, 11, -5, 11 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="target" type="Area2D" parent="."]
+
+visibility/behind_parent = true
+input/pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="polygon" type="Polygon2D" parent="target"]
+
+polygon = Vector2Array( -7, 16, -10, 9, -10, -9, -5, -16, 6, -16, 11, -9, 11, 9, 8, 16 )
+uv = Vector2Array(  )
+color = Color( 1, 1, 1, 1 )
+vertex_colors = ColorArray(  )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
+

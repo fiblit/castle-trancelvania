@@ -8,6 +8,7 @@ onready var root = get_tree().get_root().get_node("level")
 export var max_speed = 200
 export var time_to_deccel = 0.6
 export var time_to_accel = 0.15
+export var ability = 0 #out of 100; active at 100
 export var max_health = 5
 export var health = 5
 export var regen = 5 # +1 health / regen (since last hit/heal)
@@ -112,6 +113,17 @@ func _ready():
 	pos = get_pos()
 	set_fixed_process(true)
 	set_process(true)
+
+func ability_ready():
+	return ability == 100
+
+func set_ability(pt):
+	ability = pt
+	root.get_portrait().set_ability(pt)
+
+func set_health(hp):
+	health = hp
+	root.get_portrait().set_health(hp)
 
 func bullet_hit(bullet):
 	if to_vulnerable <= 0:
