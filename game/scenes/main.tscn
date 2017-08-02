@@ -31,7 +31,6 @@ text = "FPS"
 
 [node name="portrait_active" parent="HUD" instance=ExtResource( 3 )]
 
-editor/display_folded = true
 rect/scale = Vector2( 2, 2 )
 
 [node name="id" parent="HUD/portrait_active"]

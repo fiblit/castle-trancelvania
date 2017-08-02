@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://game/npc/enemy.gd" type="Script" id=1]
-[ext_resource path="res://art/icon.png" type="Texture" id=2]
+[ext_resource path="res://art/dummy/robo.png" type="Texture" id=2]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -35,6 +35,8 @@ script/script = ExtResource( 1 )
 health = 2
 max_speed = 100
 fire_rate = 1
+bullet_range = 300
+bullet_speed = 250
 
 [node name="sprite" type="Sprite" parent="."]
 

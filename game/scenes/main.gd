@@ -80,5 +80,8 @@ func spawn_bullet(dir, pos, dist, speed):
 	bullet.init(dir, pos, dist, speed)
 	add_child(bullet)
 
+func get_portrait():
+	return get_node("HUD/portrait_active")
+
 func on_player_death():
 	get_node("/root/scene_changer").goto_scene("res://game/gui/menu/menu.tscn")

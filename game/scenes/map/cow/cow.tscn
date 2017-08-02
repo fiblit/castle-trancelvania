@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://game/scenes/map/cow/cow.tex" type="Texture" id=1]
+
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 57, 40, 57, 47, 19, 47, 19, 40 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 40, 11, 45, 1, 60, 0, 63, 14, 57, 44, 50, 47 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 18, 13, 40, 11, 50, 47, 19, 47, 13, 27, 13, 19 )
+
+[node name="cow" type="Sprite"]
+
+texture = ExtResource( 1 )
+centered = false
+
+[node name="body" type="KinematicBody2D" parent="."]
+
+transform/pos = Vector2( 32, 20 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -32, -20 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+
+[node name="polygon" type="CollisionPolygon2D" parent="body"]
+
+transform/pos = Vector2( -32, -20 )
+build_mode = 0
+polygon = Vector2Array( 19, 40, 19, 47, 57, 47, 57, 40 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="target" type="Area2D" parent="."]
+
+visibility/behind_parent = true
+input/pickable = true
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 3 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="polygon1" type="CollisionPolygon2D" parent="target"]
+
+build_mode = 0
+polygon = Vector2Array( 19, 47, 13, 27, 13, 19, 18, 13, 40, 11, 45, 1, 60, 0, 63, 14, 57, 44, 50, 47 )
+shape_range = Vector2( 0, 1 )
+trigger = false
+
+

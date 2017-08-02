@@ -99,7 +99,7 @@ func _process(delta):
 		sprite.set_opacity(1)
 		time_to_regen -= delta
 		if time_to_regen <= 0 and health < max_health:
-			health += 1
+			set_health(health + 1)
 			time_to_regen = regen
 	
 	if to_vulnerable > 0:
@@ -108,6 +108,8 @@ func _process(delta):
 		var anim = cos(to_vulnerable * 2 * PI * blink_count / damage_delay)
 		sprite.set_opacity(mean + variance * anim)
 		to_vulnerable -= delta
+	
+	set_ability(ability + delta * 10)
 
 func _ready():
 	pos = get_pos()
@@ -128,7 +130,7 @@ func set_health(hp):
 func bullet_hit(bullet):
 	if to_vulnerable <= 0:
 		to_vulnerable = damage_delay
-		health -= 1
+		set_health(health - 1)
 		time_to_regen = regen
 		if health <= 0:
 			emit_signal("player_death")
