@@ -31,7 +31,7 @@ var accel = Vector2(0, 0)
 var velocity = Vector2(0, 0)
 var pos = Vector2(0, 0)
 
-onready var flee_to = null
+onready var flee_timer = null
 
 signal player_death
 
@@ -68,13 +68,14 @@ func _fixed_process(delta):
 	
 	pos += velocity * delta
 	set_pos(pos)
+	if flee_timer != null:
+		flee_timer -= delta
 
 func set_pos(pos):	
 	.set_pos(pos)
 	
-	if flee_to != null:
-		var dist_to_door = (flee_to - pos).length_squared()
-		if dist_to_door < 30 * 30:
+	if flee_timer != null:
+		if flee_timer < 0:
 			queue_free()
 	else:
 		#Help detect collisions smoothly (this probably isn't performant though)
@@ -121,7 +122,7 @@ func gain_ability(delta):
 	set_ability(ability + delta * 10)
 
 func _process(delta):
-	if flee_to == null:
+	if flee_timer == null:
 		regen(delta)
 		gain_ability(delta)
 
@@ -149,7 +150,9 @@ func bullet_hit(bullet):
 func flee(door_pos):
 	get_node("tripod").queue_free()
 	get_node("target").queue_free()
-	get_node("polygon").queue_free()
-	accel(door_pos - get_pos())
-	flee_to = door_pos
+	#get_node("polygon").queue_free()
+	deccel = Vector2(0, 0)
+	accel = Vector2(0, 0)
+	velocity = door_pos - get_pos()
+	flee_timer = (door_pos - get_pos()).length() / max_speed + 0.1
 	set_ability(0)

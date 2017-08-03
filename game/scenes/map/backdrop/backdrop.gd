@@ -79,7 +79,7 @@ func update_doors():
 	var l_edge = view_org
 	var r_edge = view_org + view_width
 	
-	# can't make function because can only pass int by value (which is BS)
+	# can't make this a function because int can only pass by value
 	var l_off = doors[left_offscreen].x
 	var l_on = doors[left_onscreen].x
 	if l_on < l_edge and left_onscreen < doors.size() - 1:

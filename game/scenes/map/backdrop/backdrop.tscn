@@ -7,5 +7,8 @@
 z/z = -1
 sort/enabled = true
 script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 

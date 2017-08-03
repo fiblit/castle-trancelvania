@@ -75,7 +75,8 @@ func switch_to(name):
 	flee_timer = (door_pos - old_pos).length() / player.max_speed
 	player.flee(door_pos)
 	spawn_player(name, door_pos)
-	player.get_node("tripod").set_pos(old_pos)
+	var view_org = get_viewport_transform().get_origin()
+	player.get_node("tripod").set_pos(old_pos + view_org)
 	
 	var a = get_active_portrait()
 	var n = get_named_portrait()
@@ -115,7 +116,7 @@ func _ready():
 	screen_height = get_viewport_rect().size.height
 	screen_center = Vector2(screen_width / 2, screen_height / 2)
 	
-	spawn_player(names[0], Vector2(screen_center.x, screen_center.y))
+	spawn_player(names[0], Vector2(0, 32 * 14))
 
 func spawn_bullet(dir, pos, dist, speed):
 	var bullet = bullet_scene.instance()
