@@ -70,13 +70,18 @@ func try_player_switch(name):
 		switch_to(name)
 
 func switch_to(name):
-	var door_pos = Vector2(-100, -100)#get_node("map").get_onscreen_door().get_pos()
+	var door_pos = get_node("map").get_onscreen_door()
 	var old_pos = player.get_pos()
 	flee_timer = (door_pos - old_pos).length() / player.max_speed
 	player.flee(door_pos)
-	get_node("HUD/portrait_active").copy(get_node("HUD/portrait_"+name))
 	spawn_player(name, door_pos)
 	player.get_node("tripod").set_pos(old_pos)
+	
+	var a = get_active_portrait()
+	var n = get_named_portrait()
+	a.copy(n)
+	player.set_health(n.get_health() / 20)
+	player.set_ability(n.get_ability())
 
 func _process(delta):
 	player_controls(delta)
@@ -101,6 +106,7 @@ func spawn_player(name, pos):
 	player = load("res://game/player/"+name+".tscn").instance()
 	player.set_pos(pos)
 	add_child(player)
+	player.connect("player_death", self, "on_player_death")
 
 func _ready():
 	set_process_input(true)
@@ -110,7 +116,6 @@ func _ready():
 	screen_center = Vector2(screen_width / 2, screen_height / 2)
 	
 	spawn_player(names[0], Vector2(screen_center.x, screen_center.y))
-	player.connect("player_death", self, "on_player_death")
 
 func spawn_bullet(dir, pos, dist, speed):
 	var bullet = bullet_scene.instance()

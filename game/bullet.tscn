@@ -57,13 +57,13 @@ trigger = true
 
 transform/pos = Vector2( 0, 14 )
 transform/scale = Vector2( 1.5, 1.5 )
-config/amount = 20
-config/lifetime = 1.5
+config/amount = 16
+config/lifetime = 0.8
 config/time_scale = 3.0
 config/process_mode = 1
 params/direction = 0.0
 params/spread = 7.0
-params/linear_velocity = 60.0
+params/linear_velocity = 45.0
 params/spin_velocity = 60.0
 params/orbit_velocity = 0.0
 params/gravity_direction = 0.0

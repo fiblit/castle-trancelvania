@@ -23,9 +23,9 @@ func is_lit():
 	return on_fire
 
 func copy(portrait):
-	on_fire = portrait.is_lit()
-	set_ability(portrait.get_ability())
-	set_health(portrait.get_health())
+	#on_fire = portrait.is_lit()
+	#set_ability(portrait.get_ability())
+	#set_health(portrait.get_health())
 	get_node("idol").set_texture(portrait.get_node("idol").get_texture())
 
 func _ready():
