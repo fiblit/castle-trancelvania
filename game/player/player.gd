@@ -31,6 +31,8 @@ var accel = Vector2(0, 0)
 var velocity = Vector2(0, 0)
 var pos = Vector2(0, 0)
 
+onready var flee_to = null
+
 signal player_death
 
 func deccel():
@@ -67,10 +69,16 @@ func _fixed_process(delta):
 	pos += velocity * delta
 	set_pos(pos)
 
-func set_pos(pos):
+func set_pos(pos):	
 	.set_pos(pos)
-	#Help detect collisions smoothly (this probably isn't performant though)
-	move(Vector2(0, 0))
+	
+	if flee_to != null:
+		var dist_to_door = (flee_to - pos).length_squared()
+		if dist_to_door < 30 * 30:
+			queue_free()
+	else:
+		#Help detect collisions smoothly (this probably isn't performant though)
+		move(Vector2(0, 0))
 
 func get_size():
 	return self.get_node("sprite").get_texture().get_size()
@@ -92,7 +100,7 @@ func try_fire(ndir_to_mouse, delta):
 		var root = get_tree().get_root().get_node("level")
 		root.spawn_bullet(ndir_to_mouse, offset_pos, bullet_range, bullet_speed)
 
-func _process(delta):
+func regen(delta):
 	var sprite = get_node("sprite")
 	
 	if to_vulnerable <= 0:
@@ -108,8 +116,14 @@ func _process(delta):
 		var anim = cos(to_vulnerable * 2 * PI * blink_count / damage_delay)
 		sprite.set_opacity(mean + variance * anim)
 		to_vulnerable -= delta
-	
+
+func gain_ability(delta):
 	set_ability(ability + delta * 10)
+
+func _process(delta):
+	if flee_to == null:
+		regen(delta)
+		gain_ability(delta)
 
 func _ready():
 	pos = get_pos()
@@ -121,16 +135,21 @@ func ability_ready():
 
 func set_ability(pt):
 	ability = pt
-	root.get_portrait().set_ability(pt)
+	root.get_named_portrait().set_ability(pt)
+	root.get_active_portrait().set_ability(pt)
 
 func set_health(hp):
 	health = hp
-	root.get_portrait().set_health(hp)
+	root.get_named_portrait().set_health(hp)
+	root.get_active_portrait().set_health(hp)
 
 func bullet_hit(bullet):
-	if to_vulnerable <= 0:
-		to_vulnerable = damage_delay
-		set_health(health - 1)
-		time_to_regen = regen
-		if health <= 0:
-			emit_signal("player_death")
+	bullet.die_on_hit = false
+
+func flee(door_pos):
+	get_node("tripod").queue_free()
+	get_node("target").queue_free()
+	get_node("polygon").queue_free()
+	accel(door_pos - get_pos())
+	flee_to = door_pos
+	set_ability(0)

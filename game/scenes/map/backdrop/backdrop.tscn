@@ -2,9 +2,10 @@
 
 [ext_resource path="res://game/scenes/map/backdrop/backdrop.gd" type="Script" id=1]
 
+[node name="backdrop" type="YSort"]
 
-[node name="backdrop" type="Node2D"]
-
+z/z = -1
+sort/enabled = true
 script/script = ExtResource( 1 )
 
 

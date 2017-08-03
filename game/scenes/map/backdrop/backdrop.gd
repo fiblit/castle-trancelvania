@@ -1,4 +1,6 @@
-extends Node2D
+extends YSort
+#So I made this a Ysort in the hopes that it would properly YSort with the
+#player... It didn't. Not sure what I was doing wrong.
 
 # I only index it like this in case I want to sp
 var index = {

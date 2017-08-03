@@ -52,17 +52,54 @@ func player_controls(delta):
 	else:
 		player.deccel()
 
+var names = [
+	"lim_poirier",
+	"da_mciver"
+	#"mo_berger",
+	#"ah_marlowe"
+]
+var current_name = null
+
+onready var flee_timer = 0
+func try_player_switch(name):
+	var is_not_me = current_name != name
+	var portrait = "HUD/portrait_" + name
+	var is_alive = 0 < get_node(portrait).get_health()
+	var fleeing = 0 < flee_timer
+	if not fleeing and is_alive and is_not_me:
+		switch_to(name)
+
+func switch_to(name):
+	var door_pos = Vector2(-100, -100)#get_node("map").get_onscreen_door().get_pos()
+	var old_pos = player.get_pos()
+	flee_timer = (door_pos - old_pos).length() / player.max_speed
+	player.flee(door_pos)
+	get_node("HUD/portrait_active").copy(get_node("HUD/portrait_"+name))
+	spawn_player(name, door_pos)
+	player.get_node("tripod").set_pos(old_pos)
+
 func _process(delta):
 	player_controls(delta)
+	if flee_timer > 0:
+		flee_timer -= delta
+		for name in names:
+			var val
+			if flee_timer <= 0:
+				val = 1
+			else:
+				val = 0.5
+			get_node("HUD/portrait_"+name).set_opacity(val)
 
 func _input(event):
 	try_hold_actions(event)
+	for name in names:
+		if event.is_action_pressed("switch_to_" + name):
+			try_player_switch(name)
 
-func spawn_player():
-	player = player_scene.instance()
-	var center_x = screen_center.x - player.get_size().width / 2
-	var center_y = screen_center.y - player.get_size().height / 2
-	player.set_pos(Vector2(center_x, center_y))
+func spawn_player(name, pos):
+	current_name = name
+	player = load("res://game/player/"+name+".tscn").instance()
+	player.set_pos(pos)
 	add_child(player)
 
 func _ready():
@@ -72,7 +109,7 @@ func _ready():
 	screen_height = get_viewport_rect().size.height
 	screen_center = Vector2(screen_width / 2, screen_height / 2)
 	
-	spawn_player()
+	spawn_player(names[0], Vector2(screen_center.x, screen_center.y))
 	player.connect("player_death", self, "on_player_death")
 
 func spawn_bullet(dir, pos, dist, speed):
@@ -80,8 +117,11 @@ func spawn_bullet(dir, pos, dist, speed):
 	bullet.init(dir, pos, dist, speed)
 	add_child(bullet)
 
-func get_portrait():
+func get_active_portrait():
 	return get_node("HUD/portrait_active")
+
+func get_named_portrait():
+	return get_node("HUD/portrait_"+current_name)
 
 func on_player_death():
 	get_node("/root/scene_changer").goto_scene("res://game/gui/menu/menu.tscn")

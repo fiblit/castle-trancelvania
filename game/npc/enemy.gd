@@ -2,7 +2,7 @@ extends RigidBody2D
 
 var bullet_scene = preload("res://game/bullet.tscn")
 onready var root = get_tree().get_root().get_node("level")
-onready var player = root.get_node("player")
+onready var player = root.player
 
 export var health = 2
 export var max_speed = 100
@@ -10,6 +10,9 @@ export var fire_rate = 1
 export var bullet_range = 300
 export var bullet_speed = 250
 onready var time_to_shoot = 0
+
+var velocity = Vector2(0, 0)
+var pos = Vector2(0, 0)
 
 func hunt(delta):
 	var dir = player.get_pos() - get_pos()
@@ -25,6 +28,7 @@ func hunt(delta):
 		root.spawn_bullet(dir, offset_pos, bullet_range, bullet_speed)
 
 func _process(delta):
+	player = root.player
 	hunt(delta)
 
 func _ready():

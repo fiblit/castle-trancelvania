@@ -2,8 +2,9 @@
 
 [ext_resource path="res://game/scenes/map/terrain/tile_set.tres" type="TileSet" id=1]
 
-
 [node name="terrain" type="Node2D"]
+
+z/z = -1
 
 [node name="TileMap" type="TileMap" parent="."]
 
