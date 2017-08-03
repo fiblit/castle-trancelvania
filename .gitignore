@@ -2,4 +2,4 @@
 .fscache
 
 #Source-only
-assets/**
+*.tmp
