@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Area2D
 
 func bullet_hit(bullet):
 	var p = get_parent()
@@ -8,6 +8,6 @@ func bullet_hit(bullet):
 		print(from)
 		p.health -= 1
 		if p.health <= 0:
-			queue_free()
+			p.queue_free()
 	#else:
 	#	bullet.die_on_hit = false

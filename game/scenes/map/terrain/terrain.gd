@@ -69,34 +69,40 @@ func module_gen(section_start, num):
 		
 		#normally I'd probably make a function out of this, but I don't know how
 		#to make a lambda/functor/first-class function in Godot.
-		var n = 1 #randi()%(max - min) + min
+		var n = randi()%4
 		for i in range(n):
 			rgen_grass_mound(breadth)
-		n = 1 #randi()%(max - min) + min
+		n = randi()%4
 		for i in range(n):
 			rgen_dirt_mound(breadth)
-		n = 1 #randi()%(max - min) + min
+		n = randi()%4
+		for i in range(n):
+			rgen_cobble1_mound(breadth)
+		n = randi()%4
+		for i in range(n):
+			rgen_cobble2_mound(breadth)
+		n = randi()%8
 		for i in range(n):
 			rgen_barrel(breadth)
-		n = 1 #randi()%(max - min) + min
+		n = 1
 		for i in range(n):
 			rgen_enemies(breadth)
-		n = 1 #randi()%(max - min) + min
+		n = randi()%2
 		for i in range(n):
 			rgen_cows(breadth)
-		n = 1 #randi()%(max - min) + min
+		n = randi()%2
 		for i in range(n):
 			rgen_chickens(breadth)
-		n = 1 #randi()%(max - min) + min
+		n = randi()%4
 		for i in range(n):
 			rgen_fence(breadth)
-		n = 1 #randi()%(max - min) + min
+		n = randi()%4
 		for i in range(n):
 			rgen_wall(breadth)
-		n = 1 #randi()%(max - min) + min
+		n = randi()%10
 		for i in range(n):
 			rgen_rock(breadth)
-		n = 1 #randi()%(max - min) + min
+		n = randi()%4
 		for i in range(n):
 			rgen_rock_pile(breadth)
 		
@@ -106,15 +112,15 @@ func r_pos(breadth, size):
 	var minx = breadth[0] * tile_size.x
 	var maxx = breadth[1] * tile_size.x
 	var miny = 0
-	var maxy = terrain_height * tile_size.y
+	var maxy = (terrain_height - 1) * tile_size.y
 	var x = randf() * (maxx - size.x - minx) + minx
 	var y = randf() * (maxy - size.y - miny) + miny
 	return Vector2(x, y)
 
 func rgen_mound(breadth):
-	var sx = (randi()%9 + 1) * tile_size.x
-	var sy = (randi()%9 + 1) * tile_size.y
-	var pos = r_pos(breadth, Vector2(sx, sy))
+	var sx = (randi()%9 + 1)
+	var sy = (randi()%9 + 1)
+	var pos = r_pos(breadth, Vector2(sx * tile_size.x, sy * tile_size.y))
 	var rng = randi()%50 + 50
 	return [pos, Vector2(sx, sy), rng]
 func rgen_grass_mound(breadth):
@@ -130,9 +136,9 @@ func rgen_barrel(breadth):
 	to_instance.push_back(["barrel",[pos]])
 	
 var enemy_settings = {
-	"default":[null, Vector2(128, 128), 20, 0.3, 3, 100, 1,   300, 250],
-	"speedy":[null,  Vector2(32, 32),   5,  2, 1, 200, 0.1, 600, 50],
-	"stupid":[null,  Vector2(256, 256), 40, 0.1, 2, 50,  1.5, 300, 150],
+	"default":[null, Vector2(128, 128), 20, 0.3, 2, 100, 1.5, 300, 250],
+	"speedy":[null,  Vector2(32, 32),   5,  2, 3, 190, 0.3, 600, 25],
+	"stupid":[null,  Vector2(256, 256), 50, 0.1, 1, 50,  2, 300, 150],
 }
 func rgen_enemies(breadth):
 	var setting = randi()%100
@@ -236,8 +242,8 @@ func fill_cobble2_mound(pos, size, rng):
 			fill_tile(pos, x, y, rng, cobble2)
 func fill_tile(pos, off_x, off_y, rng, type):
 	if randi()%100 < rng:
-		var tile_x = int(pos.x) % int(tile_size.x) + off_x
-		var tile_y = int(pos.y) % int(tile_size.y) + off_y
+		var tile_x = int(pos.x) / int(tile_size.x) + off_x
+		var tile_y = int(pos.y) / int(tile_size.y) + off_y
 		ground.set_cell(tile_x, tile_y, type)
 
 var barrel_scene = preload("res://game/scenes/map/barrel/barrel.tscn")

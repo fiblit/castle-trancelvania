@@ -10,12 +10,12 @@ sort/enabled = true
 script/script = ExtResource( 1 )
 section_size = 50
 terrain_height = 26
-building_buffer = 1
+building_buffer = 0
 fence_buffer = 3
 
 [node name="ground" type="TileMap" parent="."]
 
-z/z = -1
+z/z = -1024
 mode = 0
 tile_set = ExtResource( 2 )
 cell/size = Vector2( 32, 32 )

@@ -57,6 +57,7 @@ func add_building():
 		last_right = get_right_edge(last_building)
 	var new_left = get_left_edge(building)
 	building.set_pos(last_right - new_left)
+	building.set_z((last_right - new_left).y)
 	
 	building_queue.push_back(building)
 	last_building = building_queue.back()

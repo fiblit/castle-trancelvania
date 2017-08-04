@@ -12,5 +12,8 @@ func _fixed_process(delta):
 		set_linear_velocity(max_speed * dir)
 	set_z(get_pos().y)
 
-func _ready():	
+func bullet_hit(bullet):
+	bullet.die_on_hit = false
+	
+func _ready():
 	set_fixed_process(true)

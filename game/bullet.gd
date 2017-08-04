@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Area2D
 
 var velocity = Vector2(0, 0)
 var position = Vector2(0, 0)
@@ -11,7 +11,9 @@ var time_to_live = 0
 
 func _ready():
 	self.connect("body_enter", self, "on_collision")
+	self.connect("area_enter", self, "on_collision")
 	set_process(true)
+	set_fixed_process(true)
 	if velocity.length_squared() > 0:
 		look_at(-velocity + position)
 	
@@ -19,6 +21,10 @@ func _ready():
 
 func get_size():
 	return get_node("rigid").get_texture().get_size()
+
+func _fixed_process(delta):
+	position += velocity * delta
+	set_pos(position)
 
 func _process(delta):
 	time_to_live -= delta
@@ -33,7 +39,7 @@ func init(vel, pos, dist, speed):
 	vel = vel.normalized() * base_speed
 	velocity = vel
 	position = pos + nvel * (get_size().x + get_size().y)
-	set_linear_velocity(velocity)
+	#set_linear_velocity(velocity)
 	set_pos(position)
 
 func bullet_hit(bullet):

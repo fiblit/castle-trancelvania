@@ -4,31 +4,30 @@
 [ext_resource path="res://game/npc/npc/npc1_front_walk4.tex" type="Texture" id=2]
 [ext_resource path="res://game/npc/enemy_target.gd" type="Script" id=3]
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
-points = Vector2Array( 10, 16, 10, 22, -6, 22, -6, 16 )
+points = Vector2Array( 23, 40, 23, 46, 7, 46, 7, 40 )
 
-[sub_resource type="ConvexPolygonShape2D" id=6]
-
-custom_solver_bias = 0.0
-points = Vector2Array( 7, 22, -6, 22, -6, 10, 7, 11 )
-
-[sub_resource type="ConvexPolygonShape2D" id=7]
+[sub_resource type="ConvexPolygonShape2D" id=2]
 
 custom_solver_bias = 0.0
-points = Vector2Array( 8, -16, 11, 10, 7, 11, -6, 10, -10, 8, -6, -6 )
+points = Vector2Array( 20, 46, 7, 46, 7, 36, 20, 35 )
 
-[sub_resource type="ConvexPolygonShape2D" id=8]
+[sub_resource type="ConvexPolygonShape2D" id=3]
 
 custom_solver_bias = 0.0
-points = Vector2Array( 8, -16, -6, -6, -6, -16, -2, -22, 4, -22 )
+points = Vector2Array( 21, 19, 24, 33, 20, 35, 7, 36, 3, 32, 7, 22 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 21, 8, 21, 19, 7, 22, 7, 8, 11, 2, 17, 2 )
 
 [node name="enemy" type="RigidBody2D"]
 
-transform/pos = Vector2( -1, -22 )
 input/pickable = false
-shapes/0/shape = SubResource( 5 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -37,58 +36,59 @@ mode = 2
 mass = 1.0
 friction = 1.0
 bounce = 0.0
-gravity_scale = 1.0
+gravity_scale = 0.0
 custom_integrator = false
 continuous_cd = 0
-contacts_reported = 2
-contact_monitor = true
+contacts_reported = 0
+contact_monitor = false
 sleeping = false
 can_sleep = true
 velocity/linear = Vector2( 0, 0 )
 velocity/angular = 0.0
 damp_override/linear = -1.0
-damp_override/angular = 0.0
+damp_override/angular = -1.0
 script/script = ExtResource( 1 )
-health = 2
+health = 3
 max_speed = 100
 fire_rate = 1
 bullet_range = 300
 bullet_speed = 250
 
-[node name="sprite" type="Sprite" parent="."]
-
-transform/pos = Vector2( -13, -24 )
-texture = ExtResource( 2 )
-centered = false
-
 [node name="polygon" type="CollisionPolygon2D" parent="."]
 
 build_mode = 0
-polygon = Vector2Array( -6, 16, -6, 22, 10, 22, 10, 16 )
+polygon = Vector2Array( 7, 40, 7, 46, 23, 46, 23, 40 )
 shape_range = Vector2( 0, 0 )
 trigger = false
 
-[node name="target" type="KinematicBody2D" parent="."]
+[node name="body" type="Sprite" parent="."]
 
+texture = ExtResource( 2 )
+centered = false
+
+[node name="target" type="Area2D" parent="."]
+
+visibility/behind_parent = true
 input/pickable = true
-shapes/0/shape = SubResource( 6 )
+shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = true
-shapes/1/shape = SubResource( 7 )
+shapes/1/shape = SubResource( 3 )
 shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/1/trigger = true
-shapes/2/shape = SubResource( 8 )
+shapes/2/shape = SubResource( 4 )
 shapes/2/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/2/trigger = true
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
 script/script = ExtResource( 3 )
 
-[node name="polygon" type="CollisionPolygon2D" parent="target"]
+[node name="polygon1" type="CollisionPolygon2D" parent="target"]
 
 build_mode = 0
-polygon = Vector2Array( -6, 22, -6, 10, -10, 8, -6, -6, -6, -16, -2, -22, 4, -22, 8, -16, 11, 10, 7, 11, 7, 22 )
+polygon = Vector2Array( 7, 46, 7, 36, 3, 32, 7, 22, 7, 8, 11, 2, 17, 2, 21, 8, 21, 19, 24, 33, 20, 35, 20, 46 )
 shape_range = Vector2( 0, 2 )
 trigger = true
 

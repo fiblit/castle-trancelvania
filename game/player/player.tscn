@@ -101,6 +101,10 @@ trigger = true
 
 [node name="tripod" type="Node2D" parent="."]
 
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="camera" type="Camera2D" parent="tripod"]
 
 anchor_mode = 1
@@ -119,5 +123,8 @@ drag_margin/left = 0.1
 drag_margin/top = 0.1
 drag_margin/right = 0.1
 drag_margin/bottom = 0.1
+__meta__ = {
+"_edit_lock_": true
+}
 
 

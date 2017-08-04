@@ -36,7 +36,7 @@ func _ready():
 	set_process(true)
 
 func get_size():
-	return get_node("sprite").get_texture().get_size()
+	return get_node("body").get_texture().get_size()
 
 func bullet_hit(bullet):
 	bullet.die_on_hit = false

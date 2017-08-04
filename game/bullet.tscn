@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 points = Vector2Array( 6.20805, -5.14937, -0.830715, 6.06249, -5.94969, 1.28796, 4.74549, -6.51352 )
 
-[node name="bullet" type="RigidBody2D" groups=[
+[node name="bullet" type="Area2D" groups=[
 "projectiles",
 ]]
 
@@ -16,23 +16,10 @@ input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1.09692, -1.02311, 1.02311, 1.09692, -0.0275841, 0 )
 shapes/0/trigger = true
-collision/layers = 1
-collision/mask = 1
-mode = 0
-mass = 1.0
-friction = 1.0
-bounce = 0.0
-gravity_scale = 0.0
-custom_integrator = false
-continuous_cd = 0
-contacts_reported = 1
-contact_monitor = true
-sleeping = false
-can_sleep = true
-velocity/linear = Vector2( 0, 0 )
-velocity/angular = 0.0
-damp_override/linear = -1.0
-damp_override/angular = -1.0
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
 script/script = ExtResource( 1 )
 base_speed = 600
 base_range = 600
