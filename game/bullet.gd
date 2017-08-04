@@ -5,6 +5,7 @@ var position = Vector2(0, 0)
 export var base_speed = 600
 export var base_range = 600
 export var die_on_hit = true
+var from = ""
 
 var time_to_live = 0
 
@@ -14,7 +15,7 @@ func _ready():
 	if velocity.length_squared() > 0:
 		look_at(-velocity + position)
 	
-	time_to_live = base_range / base_speed
+	time_to_live = float(base_range) / float(base_speed)
 
 func get_size():
 	return get_node("rigid").get_texture().get_size()

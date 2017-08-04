@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://game/scenes/main.gd" type="Script" id=1]
 [ext_resource path="res://game/gui/fps_counter.tscn" type="PackedScene" id=2]
@@ -6,8 +6,7 @@
 [ext_resource path="res://game/gui/da_mciver_portrait.tex" type="Texture" id=4]
 [ext_resource path="res://game/gui/mo_berger_portrait.tex" type="Texture" id=5]
 [ext_resource path="res://game/gui/ah_marlowe_portrait.tex" type="Texture" id=6]
-[ext_resource path="res://game/npc/enemy_spawner.tscn" type="PackedScene" id=7]
-[ext_resource path="res://game/scenes/map/map.tscn" type="PackedScene" id=8]
+[ext_resource path="res://game/scenes/map/map.tscn" type="PackedScene" id=7]
 
 [node name="level" type="YSort"]
 
@@ -111,12 +110,7 @@ text = "Ah Marlowe"
 
 texture = ExtResource( 6 )
 
-[node name="spawner" parent="." instance=ExtResource( 7 )]
-
-transform/pos = Vector2( 642.127, 321.064 )
-size = Vector2( 300, 300 )
-
-[node name="map" parent="." instance=ExtResource( 8 )]
+[node name="map" parent="." instance=ExtResource( 7 )]
 
 
 [editable path="HUD/portrait_active"]

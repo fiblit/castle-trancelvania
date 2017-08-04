@@ -118,9 +118,11 @@ func _ready():
 	
 	spawn_player(names[0], Vector2(0, 32 * 14))
 
-func spawn_bullet(dir, pos, dist, speed):
+func spawn_bullet(dir, pos, dist, speed, from):
 	var bullet = bullet_scene.instance()
 	bullet.init(dir, pos, dist, speed)
+	if from != "":
+		bullet.from = from
 	add_child(bullet)
 
 func get_active_portrait():

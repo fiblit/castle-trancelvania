@@ -73,6 +73,7 @@ func _fixed_process(delta):
 
 func set_pos(pos):	
 	.set_pos(pos)
+	set_z(pos.y)
 	
 	if flee_timer != null:
 		if flee_timer < 0:
@@ -97,9 +98,9 @@ func try_fire(ndir_to_mouse, delta):
 	if time_to_fire <= 0:
 		time_to_fire = fire_rate
 		var radius = get_size().x * sqrt(2) / 2
-		var offset_pos = get_pos() + ndir_to_mouse * radius
+		var off_pos = get_pos() + ndir_to_mouse * radius
 		var root = get_tree().get_root().get_node("level")
-		root.spawn_bullet(ndir_to_mouse, offset_pos, bullet_range, bullet_speed)
+		root.spawn_bullet(ndir_to_mouse, off_pos, bullet_range, bullet_speed, "")
 
 func regen(delta):
 	var sprite = get_node("sprite")

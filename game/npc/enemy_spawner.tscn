@@ -6,7 +6,12 @@
 
 script/script = ExtResource( 1 )
 time_to_spawn = 0.3
-size = Vector2( 0, 0 )
+size = Vector2( 300, 300 )
 capacity = 20
+e_health = 2
+e_speed = 100
+e_fire_rate = 1
+e_bullet_range = 300
+e_bullet_speed = 250
 
 
