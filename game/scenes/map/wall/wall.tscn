@@ -58,10 +58,10 @@ trigger = false
 
 [node name="left_edge" type="Position2D" parent="."]
 
-transform/pos = Vector2( 0, 32 )
+transform/pos = Vector2( 0, 31 )
 
 [node name="right_edge" type="Position2D" parent="."]
 
-transform/pos = Vector2( 32, 32 )
+transform/pos = Vector2( 32, 31 )
 
 

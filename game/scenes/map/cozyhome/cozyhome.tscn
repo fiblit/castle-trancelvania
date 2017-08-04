@@ -2,7 +2,6 @@
 
 [ext_resource path="res://game/scenes/map/cozyhome/cozyhome.tex" type="Texture" id=1]
 
-
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
@@ -39,10 +38,10 @@ transform/pos = Vector2( 81, 200 )
 
 [node name="left_edge" type="Position2D" parent="."]
 
-transform/pos = Vector2( 4, 200 )
+transform/pos = Vector2( 4, 199 )
 
 [node name="right_edge" type="Position2D" parent="."]
 
-transform/pos = Vector2( 133.985, 200.086 )
+transform/pos = Vector2( 134, 199 )
 
 
