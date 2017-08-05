@@ -44,7 +44,6 @@ blink_min = 0.5
 
 frames = ExtResource( 2 )
 animation = "down_stand"
-frame = 1
 playing = true
 
 [node name="polygon" type="CollisionPolygon2D" parent="."]
@@ -90,9 +89,9 @@ rotating = false
 current = true
 zoom = Vector2( 0.5, 0.5 )
 limit/left = 0
-limit/top = -232
+limit/top = -224
 limit/right = 10000000
-limit/bottom = 924
+limit/bottom = 572
 drag_margin/h_enabled = true
 drag_margin/v_enabled = true
 smoothing/enable = true
