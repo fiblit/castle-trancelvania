@@ -26,8 +26,8 @@ func try_hold_actions(event):
 
 func player_controls(delta):
 	var pos = player.get_pos()
-	var mouse_pos = get_viewport().get_mouse_pos()
-	var view_pos = get_viewport_transform().get_origin()
+	var mouse_pos = get_viewport().get_mouse_pos()/2
+	var view_pos = get_viewport_transform().get_origin()/2
 	var dir_to_mouse = mouse_pos - view_pos - pos
 	var ndir_to_mouse = dir_to_mouse.normalized()
 	if is_action_held["char_attack"]:
@@ -77,7 +77,7 @@ func switch_to(name):
 	flee_timer = (door_pos - old_pos).length() / player.max_speed
 	player.flee(door_pos)
 	spawn_player(name, door_pos)
-	var view_org = get_viewport_transform().get_origin()
+	var view_org = get_viewport_transform().get_origin()/2
 	player.get_node("tripod").set_pos(old_pos + view_org)
 	
 	var a = get_active_portrait()
@@ -122,8 +122,8 @@ func _ready():
 	set_process(true)
 	#get_viewport().set_size_override(true, get_viewport_rect().size / 2)
 	#get_viewport().set_size_override_stretch(false)
-	screen_width = get_viewport_rect().size.width
-	screen_height = get_viewport_rect().size.height
+	screen_width = get_viewport_rect().size.width/2
+	screen_height = get_viewport_rect().size.height/2
 	screen_center = Vector2(screen_width / 2, screen_height / 2)
 	
 	spawn_player(names[0], Vector2(0, 32 * 14))

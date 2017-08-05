@@ -10,6 +10,7 @@ func _fixed_process(delta):
 		random_timer = randf() * 0.5 + 0.1
 		var dir = Vector2(randf() - 0.5, randf() - 0.5).normalized()
 		set_linear_velocity(max_speed * dir)
+		get_node("body").set_flip_h(get_linear_velocity().x < 0)
 	set_z(get_pos().y)
 
 func bullet_hit(bullet):

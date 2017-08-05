@@ -10,7 +10,12 @@ var index = {
 	"straw":3,
 	"tavern":4,
 	"tall_wall":5,
-	"wall":6
+	"wall":6,
+	"barn":7,
+	"cozyhome2":8,
+	"manor":9,
+	"strawhouse2":10,
+	"tallhouse":11,
 }
 var buildings = [
 	preload("res://game/scenes/map/cozyhome/cozyhome.tscn"),
@@ -19,7 +24,12 @@ var buildings = [
 	preload("res://game/scenes/map/strawhouse/strawhouse.tscn"),
 	preload("res://game/scenes/map/tavern/tavern.tscn"),
 	preload("res://game/scenes/map/tall_wall/tall_wall.tscn"),
-	preload("res://game/scenes/map/wall/wall.tscn")
+	preload("res://game/scenes/map/wall/wall.tscn"),
+	preload("res://game/scenes/map/barn/barn.tscn"),
+	preload("res://game/scenes/map/cozyhome2/cozyhome2.tscn"),
+	preload("res://game/scenes/map/manor/manor.tscn"),
+	preload("res://game/scenes/map/strawhouse2/strawhouse2.tscn"),
+	preload("res://game/scenes/map/tallhouse/tallhouse.tscn"),
 ]
 
 var building_queue = []
@@ -68,15 +78,15 @@ func add_building():
 	add_child(building)
 
 func check_for_expansion():
-	var view_width = int(get_viewport().get_rect().size.width)
-	var view_org = int(-get_viewport_transform().get_origin().x)
+	var view_width = int(get_viewport().get_rect().size.width/2)
+	var view_org = int(-get_viewport_transform().get_origin().x/2)
 	var target_x = view_org + view_width * 1.25
 	while get_right_edge(last_building).x < target_x:
 		add_building()
 
 func update_doors():
-	var view_width = int(get_viewport().get_rect().size.width)
-	var view_org = int(-get_viewport_transform().get_origin().x)
+	var view_width = int(get_viewport().get_rect().size.width/2)
+	var view_org = int(-get_viewport_transform().get_origin().x/2)
 	var l_edge = view_org
 	var r_edge = view_org + view_width
 	

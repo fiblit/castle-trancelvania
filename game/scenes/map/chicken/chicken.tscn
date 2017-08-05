@@ -10,7 +10,7 @@
 custom_solver_bias = 0.0
 points = Vector2Array( 8, 8, 7, 12, 3, 12, 2, 8 )
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=4]
 
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
@@ -60,7 +60,7 @@ trigger = false
 
 [node name="body" type="AnimatedSprite" parent="."]
 
-frames = SubResource( 2 )
+frames = SubResource( 4 )
 animation = "default"
 frame = 1
 playing = true

@@ -55,7 +55,7 @@ trigger = false
 
 frames = ExtResource( 2 )
 animation = "down_walk"
-frame = 1
+frame = 2
 playing = true
 
 [node name="target" type="Area2D" parent="."]

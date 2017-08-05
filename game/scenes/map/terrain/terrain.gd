@@ -411,9 +411,9 @@ func _process(delta):
 	#try_unfill() #future: store seed if you want to keep same rng
 
 func get_view_org():
-	return int(-get_viewport_transform().get_origin().x)
+	return int(-get_viewport_transform().get_origin().x/2)
 func get_view_width():
-	return int(get_viewport().get_rect().size.width)
+	return int(get_viewport().get_rect().size.width/2)
 
 func _ready():
 	randomize()

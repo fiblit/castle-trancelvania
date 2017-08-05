@@ -41,12 +41,20 @@ visibility/visible = false
 
 visibility/visible = false
 
+[node name="fire" parent="HUD/portrait_active"]
+
+frame = 0
+
 [node name="portrait_lim_poirier" parent="HUD" instance=ExtResource( 3 )]
 
 editor/display_folded = true
 margin/left = 146.0
 margin/right = 210.0
 margin/bottom = 16.0
+
+[node name="fire" parent="HUD/portrait_lim_poirier"]
+
+frame = 0
 
 [node name="portrait_da_mciver" parent="HUD" instance=ExtResource( 3 )]
 
@@ -66,6 +74,10 @@ text = "Da McIver"
 [node name="idol" parent="HUD/portrait_da_mciver"]
 
 texture = ExtResource( 4 )
+
+[node name="fire" parent="HUD/portrait_da_mciver"]
+
+frame = 0
 
 [node name="portrait_mo_berger" parent="HUD" instance=ExtResource( 3 )]
 
@@ -88,6 +100,10 @@ text = "Mo Berger"
 
 texture = ExtResource( 5 )
 
+[node name="fire" parent="HUD/portrait_mo_berger"]
+
+frame = 0
+
 [node name="portrait_ah_marlowe" parent="HUD" instance=ExtResource( 3 )]
 
 editor/display_folded = true
@@ -109,6 +125,10 @@ text = "Ah Marlowe"
 [node name="idol" parent="HUD/portrait_ah_marlowe"]
 
 texture = ExtResource( 6 )
+
+[node name="fire" parent="HUD/portrait_ah_marlowe"]
+
+frame = 0
 
 [node name="map" parent="." instance=ExtResource( 7 )]
 
