@@ -54,9 +54,9 @@ func player_controls(delta):
 
 var names = [
 	"lim_poirier",
-	"da_mciver"
-	#"mo_berger",
-	#"ah_marlowe"
+	"da_mciver",
+	"mo_berger",
+	"ah_marlowe",
 ]
 var current_name = null
 
@@ -68,6 +68,8 @@ func try_player_switch(name):
 	var fleeing = 0 < flee_timer
 	if not fleeing and is_alive and is_not_me:
 		switch_to(name)
+		return true
+	return false
 
 func switch_to(name):
 	var door_pos = get_node("map").get_onscreen_door()
@@ -101,6 +103,12 @@ func _input(event):
 	for name in names:
 		if event.is_action_pressed("switch_to_" + name):
 			try_player_switch(name)
+	if event.is_action_pressed("char_special") and player.is_lit():
+		player.set_ability(0)
+		for i in range(60):
+			var rad = float(i*6) * PI / float(180)
+			var dir = Vector2(cos(rad), sin(rad))
+			player.fire(dir)
 
 func spawn_player(name, pos):
 	current_name = name
@@ -112,6 +120,8 @@ func spawn_player(name, pos):
 func _ready():
 	set_process_input(true)
 	set_process(true)
+	#get_viewport().set_size_override(true, get_viewport_rect().size / 2)
+	#get_viewport().set_size_override_stretch(false)
 	screen_width = get_viewport_rect().size.width
 	screen_height = get_viewport_rect().size.height
 	screen_center = Vector2(screen_width / 2, screen_height / 2)
@@ -132,4 +142,12 @@ func get_named_portrait():
 	return get_node("HUD/portrait_"+current_name)
 
 func on_player_death():
-	get_node("/root/scene_changer").goto_scene("res://game/gui/menu/menu.tscn")
+	player.set_ability(0)
+	var switched = false
+	for i in range(4):
+		if not switched:
+			switched = try_player_switch(names[i])
+	
+	#game over
+	if not switched:
+		get_node("/root/scene_changer").goto_scene("res://game/gui/menu/menu.tscn")

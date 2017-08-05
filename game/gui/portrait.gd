@@ -6,13 +6,18 @@ func set_health(hp):
 func get_health():
 	return get_node("health_slots").get_val()
 
+func after_boom():
+	get_node("fire").set_animation("lit")
+
 export var on_fire = false
 func set_ability(pt):
 	get_node("ability_bar").set_val(pt)
-	if pt >= 100:
+	if pt >= 100 and not on_fire:
+		#get_node("fire").connect("finished", self, "after_boom")
+		get_node("fire").set_animation("lit")
 		get_node("fire").set_hidden(false)
 		on_fire = true
-	elif on_fire:
+	elif pt < 100 and on_fire:
 		get_node("fire").set_hidden(true)
 		on_fire = false
 

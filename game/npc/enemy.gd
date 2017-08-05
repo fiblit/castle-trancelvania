@@ -17,7 +17,17 @@ var pos = Vector2(0, 0)
 func hunt(delta):
 	var dir = player.get_pos() - get_pos()
 	var ndir = dir.normalized()
-	set_linear_velocity(ndir * max_speed)
+	var vel = ndir * max_speed
+	set_linear_velocity(vel)
+	var dom_x = abs(vel.x) > abs(vel.y)
+	if dom_x and vel.x > 0:
+		get_node("body").set_animation("right_walk")
+	elif dom_x and vel.x < 0:
+		get_node("body").set_animation("left_walk")
+	elif not dom_x and vel.y > 0:
+		get_node("body").set_animation("down_walk")
+	elif not dom_x and vel.y < 0:
+		get_node("body").set_animation("up_walk")
 	
 	time_to_shoot -= delta
 	if time_to_shoot <= 0:
@@ -36,7 +46,10 @@ func _ready():
 	set_process(true)
 
 func get_size():
-	return get_node("body").get_texture().get_size()
+	var s = get_node("body")
+	var frames = s.get_sprite_frames()
+	var frame = frames.get_frame(s.get_animation(), s.get_frame())
+	return frame.get_size()
 
 func bullet_hit(bullet):
 	bullet.die_on_hit = false

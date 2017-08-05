@@ -23,7 +23,7 @@ onready var ground = get_node("ground")
 onready var tile_set = ground.get_tileset()
 onready var tile_size = ground.get_cell_size()
 export var section_size = 50
-export var terrain_height = 26
+export var terrain_height = 15
 export var building_buffer = 0
 export var fence_buffer = 3
 
@@ -136,9 +136,9 @@ func rgen_barrel(breadth):
 	to_instance.push_back(["barrel",[pos]])
 	
 var enemy_settings = {
-	"default":[null, Vector2(128, 128), 20, 0.3, 2, 100, 1.5, 300, 250],
-	"speedy":[null,  Vector2(32, 32),   5,  2, 3, 190, 0.3, 600, 25],
-	"stupid":[null,  Vector2(256, 256), 50, 0.1, 1, 50,  2, 300, 150],
+	"default":[null, Vector2(128, 128), 20, 0.5, 1, 100, 1.5, 250, 300],
+	"speedy":[null,  Vector2(32, 32),   2,  2, 1, 195, 0.1, 50, 600],
+	"stupid":[null,  Vector2(256, 256), 50, 0.25, 1, 50,  2, 150, 300],
 }
 func rgen_enemies(breadth):
 	var setting = randi()%100
@@ -299,7 +299,7 @@ func fill_fence(pos, len):
 		var fence = fence_scene.instance()
 		var pos_i = pos + Vector2(i * tile_size.x, 0)
 		fence.set_pos(pos_i)
-		fence.set_z(pos_i.y)
+		fence.set_z(pos_i.y + 14)
 		map.add_child(fence)
 
 var wall_scene = preload("res://game/scenes/map/wall/wall.tscn")
@@ -355,10 +355,26 @@ func tile_fill(section_start, num, taper):
 			ground.set_cell(x, y, get_dirty_tile())
 		start += building_buffer
 		for y in range(start, start + terrain_height):
-			ground.set_cell(x, y, cobble1)
+			if y < taper * terrain_height + start:
+				ground.set_cell(x, y, cobble1)
+			elif y < (taper + 0.15) * terrain_height + start:
+				var miny = taper * terrain_height + start
+				var maxy = (taper + 0.15) * terrain_height + start
+				if randf() < (y - miny)/(maxy - miny):
+					ground.set_cell(x, y, get_dirty_tile())
+				else:
+					ground.set_cell(x, y, cobble1)
+			else:
+				var miny = (taper + 0.15) * terrain_height + start
+				var maxy = terrain_height + start
+				if randf() < (y - miny)/(maxy - miny):
+					ground.set_cell(x, y, get_grassy_tile())
+				else:
+					ground.set_cell(x, y, get_dirty_tile())
 		start += terrain_height
 		for y in range(start, start + fence_buffer):
 			ground.set_cell(x, y, get_grassy_tile())
+				
 ###
 
 ### pre-frame
@@ -384,7 +400,7 @@ func try_fill():
 	var can_fill = sections_filled + fill_at_once < sections_gened
 	var section_end = sections_filled * section_size
 	if section_end * tile_size.x < threshold and can_fill:
-		tile_fill(section_end, fill_at_once, 0.5)
+		tile_fill(section_end, fill_at_once, 0.7)
 		module_fill(section_end, fill_at_once)
 		sections_filled += fill_at_once
 

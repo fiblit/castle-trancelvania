@@ -9,7 +9,7 @@ z/z = -1
 sort/enabled = true
 script/script = ExtResource( 1 )
 section_size = 50
-terrain_height = 26
+terrain_height = 15
 building_buffer = 0
 fence_buffer = 3
 

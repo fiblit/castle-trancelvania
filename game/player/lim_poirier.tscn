@@ -4,4 +4,8 @@
 
 [node name="lim_poirier" instance=ExtResource( 1 )]
 
+[node name="sprite" parent="."]
+
+frame = 0
+
 

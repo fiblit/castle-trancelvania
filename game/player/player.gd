@@ -11,7 +11,7 @@ export var time_to_accel = 0.15
 export var ability = 0 #out of 100; active at 100
 export var max_health = 5
 export var health = 5
-export var regen = 5 # +1 health / regen (since last hit/heal)
+export var regen = 12 # +1 health / regen (since last hit/heal)
 onready var time_to_regen = regen
 export var damage_delay = 0.5
 onready var to_vulnerable = 0
@@ -42,6 +42,14 @@ func deccel():
 func accel(vec):
 	deccel = Vector2(0, 0) #prevents the jerking turn-around (maybe wanted)
 	accel = vec.normalized() * max_speed / time_to_accel
+	if accel.x > 0:
+		get_node("sprite").set_animation("right_walk")
+	elif accel.x < 0:
+		get_node("sprite").set_animation("left_walk")
+	elif accel.y > 0:
+		get_node("sprite").set_animation("down_walk")
+	elif accel.y < 0:
+		get_node("sprite").set_animation("up_walk")
 
 func _fixed_process(delta):
 	pos = get_pos()#account for collisions/teleports
@@ -56,10 +64,18 @@ func _fixed_process(delta):
 	if deccel.length_squared() > 0:
 		velocity -= deccel * delta
 		
-		#If velocity has been deccelerated to the point that it moves back a bit
-		if velocity.dot(-deccel) > 0:
+		# if slow motion
+		if velocity.length_squared() < 75:
 			#stop moving!
 			velocity = Vector2(0, 0)
+			if deccel.x > 0:
+				get_node("sprite").set_animation("right_stand")
+			elif deccel.x < 0:
+				get_node("sprite").set_animation("left_stand")
+			elif deccel.y > 0:
+				get_node("sprite").set_animation("down_stand")
+			elif deccel.y < 0:
+				get_node("sprite").set_animation("up_stand")
 			deccel = Vector2(0, 0)
 	
 	var speed = velocity.length_squared()
@@ -68,22 +84,21 @@ func _fixed_process(delta):
 	
 	pos += velocity * delta
 	set_pos(pos)
+	
 	if flee_timer != null:
 		flee_timer -= delta
 
-func set_pos(pos):	
-	.set_pos(pos)
-	set_z(pos.y)
-	
-	if flee_timer != null:
-		if flee_timer < 0:
-			queue_free()
-	else:
-		#Help detect collisions smoothly (this probably isn't performant though)
+func set_pos(posi):
+	.set_pos(posi)
+	set_z(posi.y)
+	if flee_timer == null:
 		move(Vector2(0, 0))
 
 func get_size():
-	return self.get_node("sprite").get_texture().get_size()
+	var s = get_node("sprite")
+	var frames = s.get_sprite_frames()
+	var frame = frames.get_frame(s.get_animation(), s.get_frame())
+	return frame.get_size()
 
 func aim(dir):
 	var len = dir.length_squared()
@@ -93,14 +108,17 @@ func aim(dir):
 	else:
 		cam.set_pos(dir.normalized() * base_aim_sight)
 
+func fire(ndir):
+	var radius = get_size().x * sqrt(2) / 2
+	var off_pos = get_pos() + ndir * radius
+	var root = get_tree().get_root().get_node("level")
+	root.spawn_bullet(ndir, off_pos, bullet_range, bullet_speed, "")
+
 func try_fire(ndir_to_mouse, delta):
 	time_to_fire -= delta
 	if time_to_fire <= 0:
 		time_to_fire = fire_rate
-		var radius = get_size().x * sqrt(2) / 2
-		var off_pos = get_pos() + ndir_to_mouse * radius
-		var root = get_tree().get_root().get_node("level")
-		root.spawn_bullet(ndir_to_mouse, off_pos, bullet_range, bullet_speed, "")
+		fire(ndir_to_mouse)
 
 func regen(delta):
 	var sprite = get_node("sprite")
@@ -126,14 +144,17 @@ func _process(delta):
 	if flee_timer == null:
 		regen(delta)
 		gain_ability(delta)
+	else:
+		if flee_timer < 0:
+			queue_free()
 
 func _ready():
 	pos = get_pos()
 	set_fixed_process(true)
 	set_process(true)
 
-func ability_ready():
-	return ability == 100
+func is_lit():
+	return ability >= 100
 
 func set_ability(pt):
 	ability = pt
@@ -149,6 +170,7 @@ func bullet_hit(bullet):
 	bullet.die_on_hit = false
 
 func flee(door_pos):
+	set_shape_as_trigger(0, true)
 	get_node("tripod").queue_free()
 	get_node("target").queue_free()
 	#get_node("polygon").queue_free()
@@ -156,4 +178,4 @@ func flee(door_pos):
 	accel = Vector2(0, 0)
 	velocity = door_pos - get_pos()
 	flee_timer = (door_pos - get_pos()).length() / max_speed + 0.1
-	set_ability(0)
+	#set_ability(0)

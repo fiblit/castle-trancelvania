@@ -14,7 +14,6 @@ points = Vector2Array( 16, -8, 16, 16, -16, 16, -16, -8 )
 
 [node name="fence" type="Sprite"]
 
-transform/pos = Vector2( -16, -32 )
 texture = ExtResource( 1 )
 centered = false
 

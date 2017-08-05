@@ -31,11 +31,11 @@ func spawn_enemy():
 	var enemy = enemy_scene.instance()
 	enemy.set_pos(Vector2(x, y))
 	enemy.set_z(y)
-	#enemy.health = e_health
-	#enemy.max_speed = e_speed
-	#enemy.fire_rate = e_fire_rate
-	#enemy.bullet_range = e_bullet_range
-	#enemy.bullet_speed = e_bullet_speed
+	enemy.health = e_health
+	enemy.max_speed = e_speed
+	enemy.fire_rate = e_fire_rate
+	enemy.bullet_range = e_bullet_range
+	enemy.bullet_speed = e_bullet_speed
 	add_child(enemy)
 
 func _ready():

@@ -1,0 +1,29 @@
+[gd_resource type="Animation" format=1]
+
+[resource]
+
+resource/name = "New Anim"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("target/polygon:polygon")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2Array( 4, 12, 0, 8, 1, 2, 10, 0, 10, 9, 6, 12 ), Vector2Array( 4, 12, 0, 9, 1, 3, 10, 1, 10, 10, 6, 12 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
